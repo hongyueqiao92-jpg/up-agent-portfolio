@@ -134,29 +134,502 @@
 .appendix-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.appendix-card{padding:13px 15px;border:1px solid var(--line);border-radius:15px;background:#fff}.appendix-card span{color:var(--brand);font-size:10px;font-weight:750}.appendix-card h3{margin:4px 0 5px;font-size:16px}.appendix-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.coding-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.coding-metrics div{padding:10px 12px;border-radius:13px;background:#f3f0fb}.coding-metrics b{display:block;color:var(--brand);font-size:20px}.coding-metrics span{color:var(--muted);font-size:10px}
 @media(max-width:760px){.compare-grid,.example-row,.role-map,.autonomy-line,.boundary-proof,.decision-layout,.double-shot,.triple-shot,.decision-footer,.journey-grid,.recovery-grid,.recovery-principle,.eval-grid,.phase-grid,.phase-evolution,.appendix-grid,.coding-metrics{grid-template-columns:1fr}.journey-step:not(:last-child)::after{display:none}.screen-frame,.example-row .screen-frame,.boundary-proof .screen-frame,.decision-layout .screen-frame,.double-shot .screen-frame,.triple-shot .screen-frame,.recovery-grid .screen-frame,.phase-evolution .screen-frame{height:auto}.screen-frame img,.example-row .screen-frame img,.boundary-proof .screen-frame img,.decision-layout .screen-frame img,.double-shot .screen-frame img,.triple-shot .screen-frame img,.recovery-grid .screen-frame img,.phase-evolution .screen-frame img{height:auto}.conclusion-strip{grid-template-columns:1fr}}
 </style>
+
+<style id="visual-refinement-v1">
+/* Visual refinement only: preserve content, grids, spacing and screenshot dimensions. */
+:root{
+  --ink:#202630;--muted:#646b76;--faint:#79818d;
+  --brand:#526c98;--soft:#edf3fa;--line:#e3e6eb;--paper:#f5f6fa;
+}
+body{background:var(--paper)}
+.page,.p2,.p3,.case-page{background:var(--paper)}
+#p1{background:radial-gradient(ellipse at 28% 48%,rgba(213,239,247,.32),transparent 54%),radial-gradient(ellipse at 75% 54%,rgba(224,227,247,.32),transparent 56%),var(--paper)}
+.title{font-size:clamp(28px,3.8vw,46px);font-weight:600;line-height:1.25;letter-spacing:-.025em;text-wrap:balance}
+.p2 .title{font-size:clamp(30px,3.1vw,40px)}
+.p3 .title,.case-page .title{font-size:clamp(28px,2.9vw,38px)}
+h3{font-weight:600}
+.kicker{font-family:inherit;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+.kicker b{background:#e9edf3;color:var(--brand);font-weight:600}
+.lead{line-height:1.65}
+.pyramid-lead{line-height:1.6}
+.tag{background:#eef1f5;color:#59697f;font-weight:500}
+.card{box-shadow:0 4px 16px rgba(25,35,50,.025)}
+.scene-card,.research-card,.problem-card,.support-card,.flow-node,.value-card,.risk-card,
+.workflow-panel,.insight-panel,.evidence-matrix,.compare-card,.example-copy,
+.screen-frame,.role-col,.eval-panel,.phase-card{border-radius:16px}
+.decision-item,.decision-footer div,.appendix-card{border-radius:12px}
+.screen-frame{box-shadow:0 8px 24px rgba(25,35,50,.05)}
+.screen-frame figcaption{color:#646b76}
+.flow-node.output,.compare-card.ai,.role-col.system{border-color:#d7e0ec;background:#f9fbfe}
+.flow-node.destination{border-color:#dce5e1;background:#fafcfb}
+.task-node,.example-copy,.role-col.human{border-color:#d7e0ec;background:#f3f6fa}
+.task-lane b,.example-copy span,.autonomy-step:last-child b{color:#526c80;font-weight:600}
+.task-lane b,.task-lane span{font-size:12px}
+.flow-node .node-label,.role-col span{font-size:11px;font-weight:500;color:#737d8b}
+.flow-node p,.role-col p{font-size:13px}
+.flow-node:not(:last-child)::after,.journey-step:not(:last-child)::after{color:#99a4b4;font-weight:500}
+.stake-card.risk{border-color:#e7dedd;background:#fcfaf9}
+.stake-card.risk p{color:#966b62}
+.insight-panel,.problem-definition,.pyramid-transition{border-color:#d7e0ec;background:#edf3fa}
+.insight-label,.definition-label,.insight-row:last-child .insight-label{background:#e0e8f3;color:#486180;font-weight:600}
+.pyramid-transition p,.problem-definition p,.insight-row p{font-weight:500}
+.pyramid-next b,.p3-transition b{color:#526c98;font-weight:600}
+.research-stat{color:var(--ink);font-weight:600}
+.research-strip p{font-size:13px}
+.matrix-head{background:#edf0f5;font-weight:600}
+.matrix-stage{background:#f8f9fb}
+.matrix-stage b{font-weight:600}
+.matrix-stage span{font-size:11px;color:#737d8b}
+.matrix-finding p,.matrix-evidence{font-size:13px}
+.conclusion-strip{border-color:#dce3ed;background:#edf2f8}
+.conclusion-strip b{color:#52677f;font-weight:600}
+.conclusion-strip p{font-weight:500;line-height:1.55}
+.autonomy-step{font-size:12px}
+.autonomy-step b{font-size:12px;font-weight:600}
+.autonomy-step:last-child{border-color:#d7e0ec;background:#f3f6fa}
+.decision-item b{font-size:12px;font-weight:600;color:#52677f}
+.decision-item p{font-size:13px;line-height:1.55}
+.decision-footer div{font-size:13px}
+.decision-footer b{color:#52677f;font-weight:600}
+.journey-step span{font-size:11px;font-weight:500;color:#657994}
+.journey-step h3{font-size:15px}
+.journey-step p{font-size:12px;line-height:1.5}
+.recovery-arrow{color:#657994;font-weight:500}
+.recovery-principle div{font-size:12px}
+.recovery-principle b{font-size:12px;font-weight:600;color:#52677f}
+.eval-panel.verified{border-color:var(--line);background:#fff}
+.eval-panel ul{font-size:13px;line-height:1.65}
+.phase-card.future{border-color:#d7dee8;background:#f8fafc}
+.phase-label,.future .phase-label{color:#657994;font-weight:600}
+.phase-evolution .phase-card p,.phase-evolution .phase-card ul{font-size:12px;line-height:1.6}
+.appendix-card span{font-size:11px;font-weight:500;color:#657994}
+.appendix-card p{font-size:13px;line-height:1.6}
+.coding-metrics div{background:#ebeff5;border-radius:12px}
+.coding-metrics b{color:var(--ink);font-size:22px;font-weight:600}
+.coding-metrics span{font-size:12px}
+.nav a{background:#d4dbe5}
+.nav a.active{background:#526c98}
+.footer{color:#79818d}
+@media(min-width:761px) and (max-width:1000px){
+  .screen-frame figcaption{line-height:1.1;padding-block:5px}
+}
+@media(max-width:760px){
+  .title,.p2 .title,.p3 .title,.case-page .title{font-size:30px;line-height:1.3}
+}
+</style>
+
+<style id="cover-refinement-20261019">
+#p1 .cover-layout{display:grid;grid-template-columns:.86fr 1.14fr;gap:32px;align-items:center;margin-top:28px}
+#p1 .cover-project{font-size:18px;font-weight:600;letter-spacing:.02em;color:var(--brand)}
+#p1 .title{font-size:clamp(28px,2.8vw,38px);line-height:1.32;letter-spacing:-.025em;margin:12px 0 20px;text-wrap:initial}
+#p1 .cover-value{margin:0;color:var(--muted);font-size:16px;line-height:1.8}
+#p1 .cover-meta span{font-size:12px;font-weight:600;color:#657994}
+#p1 .cover-visual{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 12px 32px rgba(25,35,50,.06)}
+#p1 .cover-visual img{display:block;width:100%;height:auto}
+#p1 .cover-visual figcaption{padding:11px 14px;border-top:1px solid #edf0f5;color:var(--muted);font-size:11px;line-height:1.5}
+#p1 .cover-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:32px;padding-top:20px;border-top:1px solid #dce3ed}
+#p1 .cover-meta p{margin:6px 0 0;font-size:13px;line-height:1.7;color:var(--muted)}
+@media(max-width:760px){
+#p1 .cover-layout{grid-template-columns:1fr;gap:24px;margin-top:24px}
+#p1 .title{font-size:clamp(22px,6.6vw,30px);text-wrap:balance}
+#p1 .cover-meta{grid-template-columns:1fr;gap:18px;margin-top:24px}
+}
+</style>
+
+<style id="page02-hierarchy-20261019">
+#p2 .pyramid-lead{margin-bottom:26px}
+#p2 .business-route{display:grid;grid-template-columns:2fr 4fr 1fr;gap:14px;align-items:start}
+#p2 .route-zone{min-width:0}
+#p2 .route-zone-head{display:flex;flex-direction:column;gap:4px;min-height:66px;padding:4px 0 12px}
+#p2 .route-zone-head b{color:var(--ink);font-size:15px;font-weight:600}
+#p2 .route-zone-head>span{color:var(--muted);font-size:11px}
+#p2 .route-nodes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#p2 .route-persona{padding:12px 14px 16px;border:1px solid #ccd8e9;border-radius:16px;background:#edf2f8}
+#p2 .route-persona .route-nodes{grid-template-columns:repeat(4,minmax(0,1fr))}
+#p2 .route-persona .route-zone-head{height:65px;min-height:65px;padding-top:0}
+#p2 .route-before,#p2 .route-after{padding-top:12px}
+#p2 .route-after .route-nodes{grid-template-columns:1fr}
+#p2 .route-node{position:relative;min-width:0;min-height:157px;padding:13px 10px;border:1px solid var(--line);border-radius:12px;background:#fff}
+#p2 .route-number{font-size:10px;color:#657994;white-space:nowrap}
+#p2 .route-node h3{margin:12px 0 8px;font-size:17px;line-height:1.4}
+#p2 .route-node p{margin:0;font-size:12px;line-height:1.65;color:var(--muted)}
+#p2 .route-node::after{content:'→';position:absolute;right:-12px;top:65px;z-index:1;font-size:17px;color:#8997aa}
+#p2 .route-before .route-node:last-child::after{right:-15px}
+#p2 .route-persona .route-node:last-child::after{right:-29px}
+#p2 .route-after .route-node::after{display:none}
+#p2 .route-pass{display:block;margin-top:8px;color:#567768;font-size:10px}
+#p2 .route-package{border-color:#d7e0dc;background:#fbfdfc}
+#p2 .route-feedback{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding-top:10px}
+#p2 .route-retry{position:relative;grid-column:1 / 4;height:40px;margin:0 16px;border:1px solid #b9946b;border-top:0;border-radius:0 0 7px 7px;text-align:center}
+#p2 .route-retry::before{content:'↑';position:absolute;left:-7px;top:-16px;color:#a47b4c;font-size:18px}
+#p2 .route-retry span{position:relative;top:27px;padding:0 7px;background:#edf2f8;color:#946c40;font-size:10px;white-space:nowrap}
+#p2 .scene-stakes{margin-top:24px}
+#p2 .pyramid-next{margin-top:16px}
+@media(max-width:1000px) and (min-width:761px){
+#p2 .business-route{grid-template-columns:1fr}
+#p2 .route-before .route-nodes{grid-template-columns:1fr 1fr}
+#p2 .route-zone-head{min-height:0}
+#p2 .route-node{min-height:145px}
+#p2 .route-before .route-node:last-child::after,#p2 .route-persona .route-node:last-child::after{display:none}
+#p2 .route-after .route-node{min-height:0}
+}
+@media(max-width:760px){
+#p2 .pyramid-lead{margin-bottom:22px}
+#p2 .business-route{grid-template-columns:1fr;gap:16px}
+#p2 .route-zone-head{min-height:0}
+#p2 .route-persona .route-nodes{grid-template-columns:1fr}
+#p2 .route-before .route-nodes{grid-template-columns:1fr}
+#p2 .route-node{min-height:0;padding:14px 16px}
+#p2 .route-node h3{margin:6px 0}
+#p2 .route-node p br{display:none}
+#p2 .route-node::after{content:'↓';right:18px;top:auto;bottom:-18px}
+#p2 .route-before .route-node:last-child::after,#p2 .route-persona .route-node:last-child::after{display:none}
+#p2 .route-feedback{display:block;padding-top:12px}
+#p2 .route-retry{height:auto;margin:0;border:0;text-align:left}
+#p2 .route-retry::before{display:none}
+#p2 .route-retry span{position:static;padding:0;white-space:normal;font-size:12px}
+}
+</style>
+
+<style id="page03-step-evidence-20261019">
+#p3 .page-inner{width:min(1180px,100%)}
+#p3 .title{margin:12px 0 8px;font-size:clamp(28px,2.9vw,38px)}
+#p3 .p3-lead{margin:0 0 18px;color:var(--muted);font-size:17px;line-height:1.5}
+#p3 .p3-problem-head{margin:0 0 10px}
+#p3 .p3-problem-head h3{margin:0;font-size:24px;line-height:1.3}
+#p3 .p3-problem-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+#p3 .p3-problems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#p3 .p3-problem{padding:17px 18px;border:1px solid #d8e5f7;border-radius:16px;background:#fff}
+#p3 .p3-problem:nth-child(2){border-color:#f1d8de;background:#fffafb}
+#p3 .p3-problem-id{display:flex;align-items:center;gap:10px;color:#687793;font-size:13px}
+#p3 .p3-problem-id b{display:grid;width:34px;height:34px;place-items:center;border-radius:50%;background:#2d7df1;color:#fff;font-size:16px}
+#p3 .p3-problem:nth-child(2) .p3-problem-id b{background:#df5870}
+#p3 .p3-stage{display:block;margin:8px 0 0;color:#687793;font-size:12px;line-height:1.5}
+#p3 .p3-problem h4{margin:10px 0 6px;color:#2876df;font-size:19px;line-height:1.35}
+#p3 .p3-problem:nth-child(2) h4{color:#d94d67}
+#p3 .p3-problem p{margin:0;color:#53637c;font-size:13px;line-height:1.55}
+#p3 .p3-evidence{margin-top:13px;padding-top:11px;border-top:1px solid #e4e9f1;color:#687793;font-size:12px;line-height:1.5}
+#p3 .p3-conclusion{margin-top:14px;padding:14px 20px;border:1px solid #d8e5f7;border-radius:14px;background:#fff;color:#2876df;font-size:16px;font-weight:600}
+#p3 .p3-conclusion b{display:inline-block;margin-right:24px;color:var(--ink)}
+#p3 .matrix-head,#p3 .evidence-row{grid-template-columns:240px 1fr 300px}
+#p3 .matrix-stage,#p3 .matrix-finding,#p3 .matrix-evidence{padding:18px 16px}
+#p3 .matrix-stage b{font-size:16px}
+#p3 .matrix-stage .step-reference{margin-top:8px;color:#52677f;font-size:12px;line-height:1.6}
+#p3 .matrix-stage small{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.5}
+#p3 .matrix-finding{display:flex;flex-direction:column;justify-content:center}
+#p3 .matrix-finding h3{font-size:17px;line-height:1.45;margin-bottom:7px}
+#p3 .matrix-finding p{font-size:13px;line-height:1.6}
+#p3 .matrix-evidence{flex-direction:column;align-items:flex-start;justify-content:center;background:#fcfdff}
+#p3 .evidence-kind{display:inline-block;color:#52677f;font-size:11px;font-weight:600;margin-bottom:7px}
+#p3 .evidence-kind.analysis{color:#747b85}
+#p3 .evidence-percent{color:var(--ink);font-size:28px;font-weight:600;line-height:1.1;margin-bottom:7px}
+#p3 .matrix-evidence p{margin:0;font-size:13px;line-height:1.6}
+#p3 .p3-transition{margin-top:16px}
+@media(min-width:761px) and (max-width:1000px){
+#p3 .matrix-head,#p3 .evidence-row{grid-template-columns:180px 1fr 210px}
+#p3 .matrix-stage,#p3 .matrix-finding,#p3 .matrix-evidence{padding:14px 12px}
+}
+@media(max-width:760px){
+#p3 .p3-problems{grid-template-columns:1fr}
+#p3 .p3-conclusion b{display:block;margin:0 0 5px}
+#p3 .matrix-head,#p3 .evidence-row{grid-template-columns:1fr}
+#p3 .matrix-stage,#p3 .matrix-finding,#p3 .matrix-evidence{padding:16px}
+}
+</style>
+
+<style id="navigation-summaries-20261019">
+.nav{right:14px;gap:0}
+.nav a{position:relative;display:block;width:25px;height:17px;border-radius:5px;background:transparent}
+.nav a::before{content:'';position:absolute;left:8px;top:4px;width:9px;height:9px;border-radius:50%;background:#d4dbe5;transition:background .15s,transform .15s}
+.nav a.active{background:transparent;transform:none}
+.nav a.active::before{background:var(--brand);transform:scale(1.25)}
+.nav a:hover::before,.nav a:focus-visible::before{background:var(--brand)}
+.nav a:focus-visible{outline:2px solid #9bacc7;outline-offset:1px}
+.nav-summary{position:absolute;right:100%;top:50%;transform:translateY(-50%);margin-right:10px;width:max-content;max-width:min(320px,calc(100vw - 65px));padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);box-shadow:0 6px 22px rgba(25,35,50,.09);font-size:12px;line-height:1.6;font-weight:400;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s,visibility .15s}
+.nav a:hover .nav-summary,.nav a:focus-visible .nav-summary{opacity:1;visibility:visible}
+@media(max-width:760px){.nav{right:0}}
+@media(prefers-reduced-motion:reduce){.nav a::before,.nav-summary{transition:none}}
+</style>
+
+<style id="page04-intent-20261019">
+#p4 .page-lead{font-size:17px;line-height:1.65;margin-bottom:24px}
+#p4 .choice-reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#p4 .choice-reasons article{padding:22px;border:1px solid var(--line);border-radius:16px;background:#fff}
+#p4 .choice-reasons h3{font-size:21px;line-height:1.4;margin:0 0 14px}
+#p4 .choice-reasons h3 span{font-size:13px;color:var(--brand);margin-right:10px}
+#p4 .choice-reasons p{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
+#p4 .choice-evidence{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.6}
+#p4 .choice-selection{margin-top:20px;padding:17px 22px;border:1px solid #d7e0ec;border-radius:14px;background:#edf3fa}
+#p4 .choice-selection b{display:block;margin-bottom:5px;color:var(--brand);font-size:12px}
+#p4 .choice-selection p{margin:0;font-size:15px;line-height:1.7;color:var(--ink)}
+@media(max-width:760px){#p4 .choice-reasons{grid-template-columns:1fr;gap:14px}#p4 .choice-reasons article{padding:20px}#p4 .choice-selection{padding:17px 20px}}
+</style>
+<style id="page05-interaction-model-20261023">
+#p5 .page-lead{max-width:1080px;margin-bottom:18px;font-size:17px;line-height:1.6}
+#p5 .p5-visual-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:10px}
+#p5 .p5-visual-heading span{color:var(--brand);font-size:11px;font-weight:600}
+#p5 .p5-visual-heading h3{margin:2px 0 0;font-size:19px;line-height:1.35}
+#p5 .p5-visual-heading p{max-width:430px;margin:0;color:var(--muted);font-size:12px;text-align:right}
+#p5 .p5-visual{overflow:hidden;margin:0;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(25,35,50,.05)}
+#p5 .p5-visual img{display:block;width:100%;height:auto}
+#p5 .p5-visual figcaption{padding:7px 12px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+#p5 .p5-annotations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+#p5 .p5-annotations div{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff}
+#p5 .p5-annotations b{color:var(--brand);font-size:12px;font-weight:600}
+#p5 .p5-annotations p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+#p5 .p5-bottom{display:grid;grid-template-columns:1fr 1.2fr;gap:10px;margin-top:10px}
+#p5 .p5-bottom>div{padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+#p5 .p5-bottom b{color:#52677f;font-size:12px;font-weight:600}
+#p5 .p5-bottom p{margin:3px 0 0;font-size:13px;line-height:1.5}
+#p5 .p5-validation p{color:var(--muted)}
+#p5 .p5-decision{border-color:#d7e0ec!important;background:#edf3fa!important}
+@media(max-width:760px){#p5 .p5-visual-heading{display:block}#p5 .p5-visual-heading p{margin-top:5px;text-align:left}#p5 .p5-annotations,#p5 .p5-bottom{grid-template-columns:1fr}}
+#p5 .p5-reasons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+#p5 .p5-reasons>div{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+#p5 .p5-reasons b{color:var(--brand);font-size:12px;font-weight:600}
+#p5 .p5-reasons p{margin:2px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+#p5 .p5-validation{margin-top:10px;padding:11px 14px;border:1px solid #d7e0ec;border-radius:12px;background:#edf3fa}
+#p5 .p5-validation b{color:#52677f;font-size:12px;font-weight:600}
+#p5 .p5-validation p{margin:3px 0 0;color:var(--ink);font-size:13px;line-height:1.5}
+@media(max-width:760px){#p5 .p5-reasons{grid-template-columns:1fr}}
+</style>
+<style id="page06-constraints-20261023">
+#p6 .page-lead{max-width:1110px;margin-bottom:18px;font-size:16px;line-height:1.6}
+#p6 .p6-constraints-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
+#p6 .p6-constraints-grid article{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}
+#p6 .p6-constraints-grid span,#p6 .p6-solution-head span{color:var(--brand);font-size:11px;font-weight:600}
+#p6 .p6-constraints-grid h3{margin:3px 0 5px;font-size:17px}
+#p6 .p6-constraints-grid p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+#p6 .p6-solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#p6 .p6-solution{min-width:0;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fff}
+#p6 .p6-solution-head h3{margin:4px 0 11px;font-size:19px;line-height:1.4}
+#p6 .p6-moves{display:grid;gap:5px;margin-bottom:12px}
+#p6 .p6-moves p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+#p6 .p6-moves b{margin-right:7px;color:var(--ink);font-weight:600}
+#p6 .p6-proof{overflow:hidden;margin:0;border:1px solid var(--line);border-radius:11px;background:#f5f6fa}
+#p6 .p6-proof img{display:block;width:100%;height:170px;object-fit:cover;object-position:center 37%}
+#p6 .p6-proof figcaption{padding:7px 10px;background:#fff;color:var(--muted);font-size:11px;line-height:1.45}
+#p6 .p6-proof-small{margin-top:9px}
+#p6 .p6-proof-small img{height:98px;object-position:center 37%}
+#p6 .p6-missing{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:133px;margin-top:9px;padding:14px;border:1px dashed #b7c3d4;border-radius:11px;background:#f8fafc}
+#p6 .p6-missing b{color:#526c98;font-size:12px;white-space:nowrap}
+#p6 .p6-missing p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+#p6 .p6-takeaway{display:grid;grid-template-columns:90px 1fr;gap:12px;margin-top:14px;padding:12px 16px;border:1px solid #d7e0ec;border-radius:13px;background:#edf3fa}
+#p6 .p6-takeaway b{color:#52677f;font-size:12px}
+#p6 .p6-takeaway p{margin:0;font-size:13px;line-height:1.5}
+@media(max-width:760px){#p6 .p6-constraints-grid,#p6 .p6-solution-grid,#p6 .p6-takeaway{grid-template-columns:1fr}#p6 .p6-missing{display:block}#p6 .p6-missing p{margin-top:6px}}
+</style>
+<style id="page06-07-split-20261023">
+#p6 .p6-solution-grid{grid-template-columns:1.1fr .9fr}
+#p6 .p6-id-proof img{height:215px;object-position:left top}
+#p6 .p6-missing{min-height:98px}
+#p7 .page-lead{max-width:1100px;margin-bottom:18px;font-size:16px;line-height:1.6}
+#p7 .p7-logic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+#p7 .p7-logic article{padding:15px 17px;border:1px solid var(--line);border-radius:14px;background:#fff}
+#p7 .p7-logic span{color:var(--brand);font-size:11px;font-weight:600}
+#p7 .p7-logic h3{margin:4px 0 6px;font-size:18px}
+#p7 .p7-logic p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+#p7 .p7-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#p7 .p7-proof{overflow:hidden;margin:0;border:1px solid var(--line);border-radius:16px;background:#fff}
+#p7 .p7-proof img{display:block;width:100%;height:350px;object-fit:contain;background:#f5f6fa}
+#p7 .p7-proof figcaption{padding:10px 12px;color:var(--muted);font-size:11px;line-height:1.5}
+#p7 .p7-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;min-height:390px;padding:26px;border:1px dashed #b7c3d4;border-radius:16px;background:#f8fafc;text-align:center}
+#p7 .p7-placeholder b{color:var(--brand);font-size:15px}
+#p7 .p7-placeholder p{max-width:340px;margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+#p7 .p7-takeaway{display:grid;grid-template-columns:90px 1fr;gap:12px;margin-top:14px;padding:13px 17px;border:1px solid #d7e0ec;border-radius:13px;background:#edf3fa}
+#p7 .p7-takeaway b{color:#52677f;font-size:12px}
+#p7 .p7-takeaway p{margin:0;font-size:13px;line-height:1.55}
+@media(max-width:760px){#p6 .p6-solution-grid,#p7 .p7-logic,#p7 .p7-proof-grid,#p7 .p7-takeaway{grid-template-columns:1fr}#p7 .p7-placeholder{min-height:220px}#p7 .p7-proof img{height:auto}}
+</style>
+<style id="page07-shipped-feedback-20261026">
+#p7 .p7-proof-grid{grid-template-columns:.38fr .62fr}
+#p7 .p7-proof img{height:390px;object-fit:contain}
+#p7 .p7-shipped{border-color:#d7e0ec;box-shadow:0 8px 24px rgba(25,35,50,.05)}
+#p7 .p7-shipped a{display:block;cursor:zoom-in}
+#p7 .p7-shipped img{object-fit:contain}
+@media(max-width:760px){#p7 .p7-proof-grid{grid-template-columns:1fr}#p7 .p7-proof img{height:auto}}
+</style>
+<style id="page08-09-result-20261026">
+#p8 .page-lead,#p9 .page-lead{max-width:1100px;margin-bottom:18px;font-size:16px;line-height:1.6}
+#p8 .p8-layout{display:grid;grid-template-columns:.83fr 1.17fr;gap:14px}
+#p8 .p8-story{display:grid;gap:9px}
+#p8 .p8-story>div{padding:13px 16px;border:1px solid var(--line);border-radius:13px;background:#fff}
+#p8 .p8-story .p8-decision{border-color:#d7e0ec;background:#f9fbfe}
+#p8 .p8-story span,#p9 .p9-paths span{color:var(--brand);font-size:11px;font-weight:600}
+#p8 .p8-story h3{margin:4px 0 5px;font-size:17px}
+#p8 .p8-story p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+#p8 .p8-shot,#p9 .p9-shots figure{overflow:hidden;margin:0;border:1px solid var(--line);border-radius:15px;background:#fff}
+#p8 .p8-shot a,#p9 .p9-shots a{display:block;cursor:zoom-in}
+#p8 .p8-shot img{display:block;width:100%;height:380px;object-fit:contain;background:#f5f6fa}
+#p8 .p8-shot figcaption,#p9 .p9-shots figcaption{padding:8px 11px;color:var(--muted);font-size:11px;line-height:1.45}
+#p8 .p8-info{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px}
+#p8 .p8-info>div{padding:11px 14px;border:1px solid #d7e0ec;border-radius:12px;background:#edf3fa}
+#p8 .p8-info b{color:#52677f;font-size:12px}
+#p8 .p8-info p{margin:3px 0 0;font-size:12px;line-height:1.5}
+#p9 .p9-paths{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#p9 .p9-paths>div{padding:13px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}
+#p9 .p9-paths h3{margin:3px 0 5px;font-size:18px}
+#p9 .p9-paths p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+#p9 .p9-evidence-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:16px 0 9px}
+#p9 .p9-evidence-head h3{margin:0;font-size:17px}
+#p9 .p9-evidence-head p{max-width:620px;margin:0;color:var(--muted);font-size:11px;text-align:right;line-height:1.5}
+#p9 .p9-shots{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#p9 .p9-shots img{display:block;width:100%;height:265px;object-fit:contain;background:#f5f6fa}
+#p9 .p9-takeaway{display:grid;grid-template-columns:90px 1fr;gap:12px;margin-top:13px;padding:11px 15px;border:1px solid #d7e0ec;border-radius:13px;background:#edf3fa}
+#p9 .p9-takeaway b{color:#52677f;font-size:12px}
+#p9 .p9-takeaway p{margin:0;font-size:12px;line-height:1.55}
+@media(max-width:760px){#p8 .p8-layout,#p8 .p8-info,#p9 .p9-paths,#p9 .p9-shots,#p9 .p9-takeaway{grid-template-columns:1fr}#p9 .p9-evidence-head{display:block}#p9 .p9-evidence-head p{margin-top:4px;text-align:left}#p8 .p8-shot img,#p9 .p9-shots img{height:auto}}
+</style>
+
+<style id="page08-card-pair-20261026">
+#p8 .page-lead{margin-bottom:17px}
+#p8 .p8-card-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+#p8 .p8-card-pair>article{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#fff}
+#p8 .p8-landed-card{border-color:#d7e0ec!important}
+#p8 .p8-pair-head{min-height:126px;padding:16px 18px}
+#p8 .p8-pair-head span{color:var(--brand);font-size:11px;font-weight:600}
+#p8 .p8-pair-head h3{margin:5px 0 6px;font-size:18px;line-height:1.4}
+#p8 .p8-pair-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+#p8 .p8-plan-shot{overflow:hidden;margin:0 18px;border:1px solid var(--line);border-radius:13px;background:#fff}
+#p8 .p8-plan-shot img{display:block;width:100%;height:445px;object-fit:contain}
+#p8 .p8-plan-shot figcaption{padding:8px 11px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.45}
+#p8 .p8-pair-note{margin:14px 18px 18px;padding:11px 13px;border-radius:11px;background:#edf3fa}
+#p8 .p8-pair-note b{color:#52677f;font-size:12px}
+#p8 .p8-pair-note p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+#p8 .p8-landed-shot{margin:0 18px 18px;overflow:hidden;border:1px solid var(--line);border-radius:13px;background:#f5f6fa}
+#p8 .p8-landed-shot figcaption{padding:8px 11px;background:#fff;color:var(--muted);font-size:11px;line-height:1.45}
+@media(max-width:760px){#p8 .p8-card-pair{grid-template-columns:1fr}#p8 .p8-pair-head{min-height:0}#p8 .p8-plan-shot img{height:auto}}
+</style>
+<style id="page08-priority-20261026">
+#p8 .page-lead{margin-bottom:11px}
+#p8 .p8-pair-head{min-height:111px;padding:13px 18px}
+#p8 .p8-plan-shot img{height:365px}
+#p8 .p8-landed-shot{margin-bottom:0}
+#p8 .p8-decision{display:grid;grid-template-columns:82px 1fr;gap:10px;margin-top:12px;padding:10px 14px;border:1px solid #d7e0ec;border-radius:12px;background:#edf3fa}
+#p8 .p8-decision b{color:#52677f;font-size:12px}
+#p8 .p8-decision p{margin:0;font-size:12px;line-height:1.5}
+</style>
+<style id="page08-story-20261026">
+#p8 .title{margin:14px 0 11px}
+#p8 .page-lead{margin-bottom:12px}
+#p8 .p8-reasoning{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:12px}
+#p8 .p8-reasoning>div{padding:9px 12px;border:1px solid #d7e0ec;border-radius:11px;background:#edf3fa}
+#p8 .p8-reasoning b{display:block;color:#52677f;font-size:11px}
+#p8 .p8-reasoning span{display:block;margin-top:2px;font-size:12px;line-height:1.4}
+#p8 .p8-card-pair{grid-template-columns:.88fr 1.12fr;gap:12px}
+#p8 .p8-pair-head{min-height:105px;padding:12px 16px}
+#p8 .p8-plan-shot{margin:0 16px}
+#p8 .p8-plan-shot img{height:350px}
+#p8 .p8-landed-shot{margin:0 16px}
+#p8 .p8-decision{margin-top:8px;padding:8px 12px}
+#p8 .p8-decision{margin-top:10px}
+@media(max-width:760px){#p8 .p8-reasoning,#p8 .p8-card-pair{grid-template-columns:1fr}#p8 .p8-pair-head{min-height:0}#p8 .p8-plan-shot img{height:auto}}
+</style>
+<style id="page08-direct-shot-20261026">
+#p8 .p8-direct-shot{display:block;height:430px;overflow:hidden;background:#fff}
+#p8 .p8-direct-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+@media(max-width:760px){#p8 .p8-direct-shot{height:auto}#p8 .p8-direct-shot img{height:auto}}
+</style>
 </head>
 <body>
 <nav class="nav" aria-label="页面导航"></nav>
 <main id="deck">
-<section class="page" id="p1"><div class="page-inner"><div class="kicker"><b>01</b>UP1 · 项目总览</div><h1 class="title">UP Agent：把业务意图转成可执行、可检查的人群方案</h1><p class="lead">运营需要圈选一类人群，但原流程要求用户理解复杂规则并反复验证结果。我负责把这段任务改造成可理解、可检查、可继续的人机协作闭环。</p><div class="grid"><div class="card"><span class="tag">项目阶段</span><p>UP1 已上线；UP2 为平台化升级方向。</p></div><div class="card"><span class="tag">我的职责</span><p>研究归纳、协作边界、交互视觉、上线还原与验证。</p></div></div></div></section>
-<section class="page p2" id="p2"><div class="page-inner"><div class="kicker"><b>02</b>真实业务场景</div><h2 class="title">活动投放前，运营独自承担从业务目标到可投放人群的全链路</h2><p class="pyramid-lead">这是定向运营的关键前置任务，不是单一的平台配置动作。</p><div class="scene-flow"><div class="flow-node"><span class="node-label">任务输入</span><h3>活动目标</h3><p>预期转化用户与人群特征</p></div><div class="flow-node task-node"><span class="node-label">主要用户 · 营销运营</span><h3>一人承担三类工作</h3><div class="task-lanes"><div class="task-lane"><b>业务判断</b><span>分析活动 → 定义人群</span></div><div class="task-lane"><b>规则执行</b><span>翻译配置 → 提交圈选</span></div><div class="task-lane"><b>结果决策</b><span>判断结果 → 修正交付</span></div></div></div><div class="flow-node output"><span class="node-label">任务输出</span><h3>人群包</h3><p>经过确认、可交付的目标名单</p></div><div class="flow-node destination"><span class="node-label">下游使用</span><h3>投放平台</h3><p>用于广告、推送等定向触达</p></div></div><div class="scene-stakes"><div class="stake-card"><h3>业务目标</h3><p>精准、高效地找到匹配活动的人群。</p></div><div class="stake-card risk"><h3>失败代价</h3><p>成本增加、资源浪费；国际化业务曾因人群错误造成优惠券误发。</p></div></div><div class="pyramid-transition"><span class="insight-label">核心观察</span><p>圈选的价值在于产出可用人群，但从目标到结果的全部转换成本都由运营承担。</p></div><div class="pyramid-next">下一页用研究证据回答：<b>这条链路的主要阻力发生在哪里？</b></div></div></section>
-<section class="page p3" id="p3"><div class="page-inner"><div class="kicker"><b>03</b>研究证据 → 问题定义</div><h2 class="title">现有平台难以将业务意图高效、稳定地转成可用人群</h2><p class="pyramid-lead">研究发现，主要阻力贯穿意图转译、任务执行与结果判断三个阶段。</p><div class="research-strip"><div class="research-stat">925</div><p>条工单分析</p><div class="research-stat">7</div><p>位核心用户深访</p></div><div class="evidence-matrix"><div class="matrix-head"><span>问题阶段</span><span>具体判断与用户表现</span><span>对应证据</span></div><div class="evidence-row"><div class="matrix-stage"><b>01 意图难转译</b><span>输入阶段</span></div><div class="matrix-finding"><h3>知道想找谁，但不会写成规则</h3><p>需要自行将业务目标拆解为标签、行为条件和逻辑关系。</p></div><div class="matrix-evidence">925 条工单中，20% 涉及“不知如何圈选”；7 位深访。</div></div><div class="evidence-row"><div class="matrix-stage"><b>02 执行链路长</b><span>过程阶段</span></div><div class="matrix-finding"><h3>即使知道规则，仍要反复配置</h3><p>查找标签、组合条件、等待计算，不符合预期时还要重新执行。</p></div><div class="matrix-evidence">02 页任务流：原链路 5 步均由运营完成。</div></div><div class="evidence-row"><div class="matrix-stage"><b>03 结果难判断</b><span>输出阶段</span></div><div class="matrix-finding"><h3>圈出人群，但不敢直接使用</h3><p>还要结合人群规模、规则与画像，根据经验判断是否符合活动目标。</p></div><div class="matrix-evidence">7 位核心用户深访。</div></div></div><div class="problem-definition"><span class="definition-label">问题定义</span><p>这不是单一功能的可用性问题，而是“业务目标 → 可执行、可检查、可采用人群”的任务链路断裂。</p></div><div class="p3-transition">以三类阻力界定一期范围，<b>下一页明确 Agent 接管什么、人保留什么判断</b></div></div></section>
-<section class="page case-page" id="p4"><div class="page-inner"><div class="kicker"><b>04</b>Why AI · 方案判断</div><h2 class="title">固定配置能执行已知规则，却无法承接尚未被定义清楚的业务意图</h2><p class="page-lead">运营的输入常是“提升转化”“激活高意向用户”，真正执行前还需要结合场景补全人群、行为与限制条件。设计机会不只是减少表单，而是改变任务从哪里开始。</p><div class="compare-grid"><article class="compare-card"><h3>传统 GUI：先懂规则，再开始任务</h3><ul><li>用户必须先找到正确标签与字段</li><li>把业务语言改写成平台逻辑</li><li>遇到未知条件只能反复搜索、配置</li></ul></article><article class="compare-card ai"><h3>Agent：先表达目标，再逐步具体化</h3><ul><li>允许用户从不完整的业务语言开始</li><li>把意图转成可执行步骤与结构化条件</li><li>在结果页暴露规则与证据供人复核</li></ul></article></div><div class="example-row"><div class="example-copy"><span>一期界面中的任务表达</span><h3>“提升转化”并不是一条可直接执行的规则</h3><p>系统需要把目标补全为位置、近期行为和未购买等条件；这种上下文转译正是固定表单难以提前穷举的部分。</p></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-圈选首页.jpg" alt="一期首页以业务目标作为圈选任务入口"><figcaption>UP1 · 任务从业务目标开始，而不是从标签树开始。</figcaption></figure></div><div class="conclusion-strip"><b>设计判断</b><p>AI 负责处理变化与模糊性；确定性规则、结果检查和最终采用仍需要结构化界面与人的判断。</p></div></div></section>
-<section class="page case-page" id="p5"><div class="page-inner"><div class="kicker"><b>05</b>AI Role · 协作边界</div><h2 class="title">Agent 接管“理解与执行”，人保留“业务是否正确”的决定权</h2><p class="page-lead">一期不是让模型端到端替人决定，而是按风险分配自主程度：低风险、可逆步骤自动推进；影响采用和投放的动作交回用户确认。</p><div class="role-map"><article class="role-col"><span>01 CONTEXT</span><h3>用户提供业务上下文</h3><p>活动目标、目标人群、行为线索与限制条件。</p></article><article class="role-col system"><span>02–04 AGENT</span><h3>AI 理解、规划并执行</h3><p>组织标签与算法能力，返回规则、规模和画像。</p></article><article class="role-col human"><span>05 DECISION</span><h3>人检查、修正并授权</h3><p>判断是否符合目标，决定是否提交与继续分析。</p></article></div><div class="boundary-proof"><div class="autonomy-line"><div class="autonomy-step"><b>L1 理解</b>AI 解析输入，人可补充</div><div class="autonomy-step"><b>L2 建议</b>AI 提出条件，人可查看</div><div class="autonomy-step"><b>L3 执行</b>AI 推进可逆圈选步骤</div><div class="autonomy-step"><b>L4 授权</b>高影响动作交回用户</div></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-1多轮对话-中途确认.jpg" alt="一期界面在转化分析前要求用户确认并提交人群"><figcaption>界面证据 · 请求转化分析时，系统先说明前置条件并等待用户确认。</figcaption></figure></div><div class="conclusion-strip"><b>边界原则</b><p>AI 把“0 → 有”交给系统，把“有 → 对”留给人；自主程度由错误代价与可逆性决定。</p></div></div></section>
-<section class="page case-page" id="p6"><div class="page-inner"><div class="kicker"><b>06</b>Design Decision 01 · 意图承接</div><h2 class="title">用自然语言降低启动门槛，再用结构化条件约束理解偏差</h2><div class="decision-layout"><div class="decision-copy"><div class="decision-item"><b>证据</b><p>用户知道想找谁，却需要自行将目标翻译为标签、行为和逻辑关系。</p></div><div class="decision-item"><b>洞察</b><p>问题发生在任务开始前：不是不会操作按钮，而是不知道业务目标对应哪些规则。</p></div><div class="decision-item"><b>决策</b><p>允许用户先说目标；通过场景推荐与追问补齐信息，随后把理解结果转为可检查条件。</p></div><div class="decision-item"><b>取舍</b><p>纯对话启动快但容易隐藏歧义，因此不把自然语言答案直接当作最终结果。</p></div><div class="decision-item"><b>结果</b><p>用户可以从业务表达开始，并在后续规则页核对系统理解。</p></div></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-圈选首页-输入推荐.jpg" alt="一期输入界面和场景推荐"><figcaption>界面证据 · 输入推荐将模糊目标具体化为位置、行为、时间与排除条件。</figcaption></figure></div></div></section>
-<section class="page case-page" id="p7"><div class="page-inner"><div class="kicker"><b>07</b>Design Decision 02 · 任务状态</div><h2 class="title">展示“业务做到哪一步”，而不是把模型思考过程原样暴露</h2><div class="decision-layout"><div class="decision-copy"><div class="decision-item"><b>证据</b><p>圈选包含意图分析、规则组织、召回与结果生成，等待期间用户难以判断是否正常。</p></div><div class="decision-item"><b>洞察</b><p>用户需要的是可行动的任务状态：系统在做什么、是否仍需等待、何时需要介入。</p></div><div class="decision-item"><b>决策</b><p>把执行过程翻译为意图分析、标签及算法圈人、召回优化等业务阶段。</p></div><div class="decision-item"><b>取舍</b><p>透明不等于展示全部技术细节；只保留能帮助判断进度与下一步的信息。</p></div><div class="decision-item"><b>结果</b><p>等待从“黑盒加载”变成可理解的任务推进，界面同时保留暂停入口。</p></div></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-思考中-出过程信息.jpg" alt="一期执行过程按业务阶段展示"><figcaption>界面证据 · 过程卡按业务阶段反馈当前动作，避免只显示笼统加载状态。</figcaption></figure></div></div></section>
-<section class="page case-page" id="p8"><div class="page-inner"><div class="kicker"><b>08</b>Design Decision 03 · 结果与授权</div><h2 class="title">AI 给出方案，但必须让人看得懂、改得动、决定是否采用</h2><p class="page-lead">结果可信不是靠一句“已完成”，而是让用户能从画像判断方向、从规则核对条件，并在高影响动作前主动授权。</p><div class="triple-shot"><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-群体画像.jpg" alt="一期群体画像界面"><figcaption>01 看得懂 · 用画像判断结果是否像目标人群。</figcaption></figure><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-圈选规则.jpg" alt="一期结构化圈选规则界面"><figcaption>02 改得动 · 展开规则，核对并调整具体条件。</figcaption></figure><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-提交使用.jpg" alt="一期提交使用界面"><figcaption>03 可授权 · 进入交付设置后，由用户主动提交。</figcaption></figure></div><div class="decision-footer"><div><b>判断信息如何分工</b>画像回答“是否像目标用户”，规则回答“具体圈了谁”，规模帮助判断覆盖范围。</div><div><b>控制权如何保留</b>AI 可以生成与调整方案，但保存、提交、交付等高影响动作由用户确认。</div></div><div class="conclusion-strip"><b>信任机制</b><p>信任来自可检查、可修改和可拒绝，而不是让 AI 表现得更确定。</p></div></div></section>
-<section class="page case-page" id="p9"><div class="page-inner"><div class="kicker"><b>09</b>End-to-End · 一期完整任务</div><h2 class="title">同一“提升餐饮意向用户转化”任务，从业务表达走到人工提交</h2><p class="page-lead">以下四张 UP1 界面呈现同一任务：表达目标、执行圈选、核对结果、提交使用。</p><div class="journey-grid"><article class="journey-step"><span>01 CONTEXT</span><h3>表达业务目标</h3><img src="UP Agent 一二期界面/UP1 期-圈选首页-输入.jpg" alt="输入提升转化的业务目标"><p>自然语言描述位置、近期行为和未购买条件。</p></article><article class="journey-step"><span>02 ACTION</span><h3>执行并反馈阶段</h3><img src="UP Agent 一二期界面/UP1 期-思考中-出过程信息.jpg" alt="展示圈选任务执行阶段"><p>系统组织标签、算法与召回步骤。</p></article><article class="journey-step"><span>03 EVIDENCE</span><h3>检查结果对象</h3><img src="UP Agent 一二期界面/UP1 期-输出结果.jpg" alt="检查人群规模规则和画像"><p>用户结合规模、规则和画像判断是否可用。</p></article><article class="journey-step"><span>04 CONFIRM</span><h3>授权提交使用</h3><img src="UP Agent 一二期界面/UP1 期-结果-提交使用.jpg" alt="配置并提交人群使用"><p>进入交付设置，由用户完成最终提交。</p></article></div></div></section>
-<section class="page case-page" id="p10"><div class="page-inner"><div class="kicker"><b>10</b>Failure & Correction · 局部修正</div><h2 class="title">当结果偏离目标时，只修改变化的约束，不让用户从头重建任务</h2><p class="page-lead">一期界面展示同一圈选任务中的人数调整：用户提出新目标，系统在当前任务中返回新版本。</p><div class="recovery-grid"><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量指令.jpg" alt="用户提出调整目标人数"><figcaption>用户只提出变化：把目标人数调整至 3,500 万。</figcaption></figure><div class="recovery-arrow"><b>→</b>保留已确认上下文<br>局部重算</div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量结果.jpg" alt="系统返回调整后的结果"><figcaption>系统在同一任务中返回新版本，规则与画像仍可继续检查。</figcaption></figure></div><div class="recovery-principle"><div><b>发现偏差</b>用户判断结果与目标不符</div><div><b>表达变化</b>只修改人数或单一条件</div><div><b>继承上下文</b>保留已确认的业务条件</div><div><b>再次确认</b>比较新结果后决定采用</div></div></div></section>
-<section class="page case-page" id="p11"><div class="page-inner"><div class="kicker"><b>11</b>Outcome · 一期交付</div><h2 class="title">一期交付了从目标输入到人工提交的完整圈选任务链路</h2><p class="page-lead">设计工作围绕任务的三个关键环节展开，让运营能够启动任务、理解过程并判断结果。</p><div class="eval-grid"><article class="eval-panel verified"><h3>启动：从业务目标开始</h3><ul><li>用自然语言描述目标人群</li><li>推荐示例帮助补齐关键条件</li><li>规则由系统组织，供用户核对</li></ul></article><article class="eval-panel verified"><h3>执行：看见任务进度</h3><ul><li>过程以业务阶段反馈</li><li>展示当前动作与阶段结果</li><li>用户可判断是否需要继续等待</li></ul></article><article class="eval-panel verified"><h3>采用：由人完成判断</h3><ul><li>结合规模、规则和画像检查人群</li><li>在同一任务中提出局部修正</li><li>确认后提交使用</li></ul></article></div><div class="conclusion-strip"><b>设计贡献</b><p>将运营独自承担的规则翻译与执行工作交给系统，同时保留结果检查、修正与提交的决策权。</p></div></div></section>
-<section class="page case-page" id="p12"><div class="page-inner"><div class="kicker"><b>12</b>Evolution · 阶段边界</div><h2 class="title">一期跑通单次圈选，二期方案扩展为持续分析工作区</h2><p class="page-lead">两个阶段的变化，体现在任务范围与工作区组织方式的扩展。</p><div class="phase-evolution"><div class="phase-stack"><article class="phase-card"><span class="phase-label">UP1 · 已上线核心闭环</span><h3>完成单次圈选任务</h3><p>业务目标 → 过程反馈 → 结构化结果 → 人工确认。</p><ul><li>自然语言承接意图</li><li>同一会话内局部调整</li></ul></article><article class="phase-card future"><span class="phase-label">UP2 · 平台化方案</span><h3>延伸到持续分析与多任务协作</h3><p>从单一人群结果，扩展为进度、分析、文件与历史上下文共存的工作区。</p></article></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP2 期-结果展示.jpg" alt="二期多任务工作区方案界面"><figcaption>UP2 方案界面 · 多步骤进度、规则与洞察结果进入同一工作区。</figcaption></figure></div><div class="conclusion-strip"><b>项目演进</b><p>UP1 建立单次圈选的人机闭环；UP2 方案进一步承接跨步骤的分析与协作。</p></div></div></section>
-<section class="page case-page" id="p13"><div class="page-inner"><div class="kicker"><b>13</b>Appendix · AI Coding</div><h2 class="title">设计责任延伸到代码交付，让修改真正被理解与合并</h2><p class="page-lead">我以设计师身份参与前端还原，负责静态 UI、简单交互与视觉细节，并复盘协作方式。</p><div class="coding-metrics"><div><b>1 个月</b><span>项目交付周期</span></div><div><b>38 条</b><span>Coding 改动复盘</span></div><div><b>约 24%</b><span>无效投入，主要源于未提前对齐</span></div></div><div class="appendix-grid"><article class="appendix-card"><span>01 协作边界</span><h3>让设计投入进入合适阶段</h3><p>前端负责业务逻辑、数据流与状态管理；我在联调和还原阶段介入。</p></article><article class="appendix-card"><span>02 投入价值</span><h3>把对齐放在编码之前</h3><p>编码前判断是否必要、三方是否一致、能否快速交付，控制返工成本。</p></article><article class="appendix-card"><span>03 接入成本</span><h3>让修改能够被直接合并</h3><p>按功能整理提交、参考仓库规范命名，并补充交互与视觉改动说明。</p></article><article class="appendix-card"><span>04 可复用资产</span><h3>把个人经验转成团队方法</h3><p>沉淀组件修改引导 Skill 与设计模式 Agent。</p></article></div><div class="conclusion-strip"><b>实践收获</b><p>“会写代码”不是终点，关键是判断何时投入、如何降低合并成本，并让有效经验可以复用。</p></div></div></section>
+<section class="page" id="p1"><div class="page-inner">
+<div class="kicker"><b>01</b>产品设计案例</div>
+<div class="cover-layout">
+<div class="cover-copy"><div class="cover-project">UP Agent</div><h1 class="title">把业务意图转成<br>可执行、可检查的人群方案</h1><p class="cover-value">面向营销运营的智能圈选设计：让用户从业务目标开始，由系统组织规则与执行，人保留结果检查、修正与提交的决定权。</p></div>
+<figure class="cover-visual"><img src="UP Agent 一二期界面/UP1 期-输出结果.jpg" alt="UP Agent 一期结果界面，展示执行过程、人群规模、圈选规则与画像"><figcaption>UP1 · 圈选结果界面</figcaption></figure>
+</div>
+<div class="cover-meta"><div><span>项目阶段</span><p>UP1 已上线；UP2 为平台化升级方向。</p></div><div><span>一期交付</span><p>目标输入 → 过程反馈 → 结果检查 → 人工提交</p></div><div><span>我的职责</span><p>研究归纳、协作边界、交互视觉、上线还原与验证。</p></div></div>
+</div></section>
+<section class="page p2" id="p2"><div class="page-inner"><div class="kicker"><b>02</b>真实业务场景</div><h2 class="title">运营不仅负责圈出人群，也要对结果可用性负责</h2><p class="pyramid-lead">活动投放前，从业务目标到可投放人群的全链路均由运营承担。</p><div class="business-route" aria-label="运营圈选七步流程，其中第三至第六步发生在 Persona 平台内">
+<div class="route-zone route-before"><div class="route-zone-head"><b>业务判断</b><span>Persona 平台外</span></div><div class="route-nodes">
+<div class="route-node"><span class="route-number">01 · 运营</span><h3>活动目标</h3><p>明确转化目标<br>与人群特征</p></div>
+<div class="route-node"><span class="route-number">02 · 运营</span><h3>定义人群</h3><p>分析活动，确定<br>想找到哪些用户</p></div>
+</div></div>
+<div class="route-zone route-persona"><div class="route-zone-head"><b>Persona 平台</b><span>规则执行 → 结果决策</span></div><div class="route-nodes">
+<div class="route-node"><span class="route-number">03 · 运营</span><h3>配置规则</h3><p>翻译为条件<br>配置并提交圈选</p></div>
+<div class="route-node"><span class="route-number">04 · 平台</span><h3>计算圈选</h3><p>按规则执行<br>人群匹配</p></div>
+<div class="route-node route-check"><span class="route-number">05 · 运营</span><h3>检查结果</h3><p>查看人数与画像<br>判断是否可用</p><span class="route-pass">通过 →</span></div>
+<div class="route-node route-package"><span class="route-number">06 · 运营确认</span><h3>人群包</h3><p>确认可用后<br>交付目标名单</p></div>
+</div><div class="route-feedback"><div class="route-retry"><span>未通过：返回 03，修正规则后重试</span></div></div></div>
+<div class="route-zone route-after"><div class="route-zone-head"><b>下游使用</b><span>Persona 平台外</span></div><div class="route-nodes"><div class="route-node"><span class="route-number">07 · 投放平台</span><h3>投放触达</h3><p>用于广告、推送<br>等定向触达</p></div></div></div>
+</div><div class="scene-stakes"><div class="stake-card"><h3>业务目标</h3><p>精准、高效地找到匹配活动的人群。</p></div><div class="stake-card risk"><h3>失败代价</h3><p>成本增加、资源浪费；国际化业务曾因人群错误造成优惠券误发。</p></div></div></div></section>
+<section class="page p3" id="p3"><div class="page-inner"><div class="kicker"><b>03</b>研究证据 → 问题定位</div><h2 class="title">三类核心卡点发生在圈选任务的不同环节</h2><p class="p3-lead">分析季度 925 条工单、深访 7 位用户，并结合上一页的任务链路归纳问题。</p>
+<div class="p3-problems"><article class="p3-problem"><div class="p3-problem-id"><b>01</b>核心问题</div><small class="p3-stage">02 定义人群 → 03 配置规则</small><h4>业务目标难转译为规则</h4><p>知道想找谁，但不会将业务描述转化为标签、行为条件和逻辑关系。</p><div class="p3-evidence">工单分析：20% 涉及“不知如何圈选”</div></article><article class="p3-problem"><div class="p3-problem-id"><b>02</b>核心问题</div><small class="p3-stage">03 配置规则 → 04 计算圈选 → 05 检查结果</small><h4>圈选执行衔接复杂</h4><p>结果不符合预期，需要返回规则修改、重新计算与检查。</p><div class="p3-evidence">任务链路归纳：检查未通过时需跨步骤反复操作</div></article><article class="p3-problem"><div class="p3-problem-id"><b>03</b>核心问题</div><small class="p3-stage">05 检查结果 → 06 人群包</small><h4>人群结果难判断</h4><p>已圈出人群，但仍需依赖经验判断是否符合业务目标。</p><div class="p3-evidence">用户深访：需结合人数、规则与画像判断结果可用性</div></article></div><div class="p3-conclusion"><b>综合判断</b>用户在圈选过程中，缺乏从规则表达、执行反馈到结果验证的连续支持。</div></div></section>
+<section class="page case-page" id="p4"><div class="page-inner"><div class="kicker"><b>04</b>Why Agent · 方案选择</div><h2 class="title">用 Agent 降低规则表达和任务执行成本，用结构化结果信息降低业务判断成本</h2><p class="page-lead">对应前页三类卡点：Agent 承接规则转译与任务推进，结构化结果信息支持运营判断。</p>
+<div class="choice-reasons">
+<article><h3><span>选择依据 01</span>从业务意图形成圈选规则</h3><p>结合用户输入与业务上下文，组织标签、行为条件和逻辑关系，让任务可以从目标与部分约束开始。</p><div class="choice-evidence">工单分析：925 条中，20% 涉及“不知如何圈选”。<br>UP1 PRD：意图分类、上下文融合与条件组织。</div></article>
+<article><h3><span>选择依据 02</span>从规则配置推进到结果检查</h3><p>衔接规则提交、圈选计算和结果返回；检查未通过时，支持在当前任务中修正规则并继续。</p><div class="choice-evidence">02 页任务链路：配置 → 计算 → 检查，未通过时返回修正。<br>UP1 PRD：任务规划、圈选能力组织与结果检查。</div></article>
+</div>
+<div class="choice-selection"><b>产品体验补充 · 对应结果判断卡点</b><p>Agent 返回可检查的规则与人群结果；通过结构化结果信息，帮助运营理解圈选结果并判断是否符合业务目标。</p></div>
+</div></section>
+<section class="page case-page p5-architecture" id="p5"><div class="page-inner">
+<div class="kicker"><b>05</b>Interaction Model · 核心交互架构</div>
+<h2 class="title">对话承接业务意图，结构化画布支持规则校验与调整</h2>
+<p class="page-lead">让用户先说出想找谁，再看清系统如何组织标签、条件与逻辑关系。</p>
+<div class="p5-reasons"><div><b>为什么需要对话</b><p>业务目标可以先用自然语言表达，不必从配置规则开始。</p></div><div><b>为什么需要结构化画布</b><p>多层条件和逻辑关系必须显性呈现，才能逐项检查和调整。</p></div></div>
+<div class="p5-visual-heading"><div><span>真实界面 · UP1</span><h3>同一任务中的表达、查看与调整</h3></div><p>下图对应上方两项设计判断。</p></div>
+<figure class="p5-visual"><img src="UP Agent 一二期界面/UP1 期-结果-圈选规则.jpg" alt="UP1 真实界面：左侧为对话画布与结果卡片，右侧展开层级圈选规则及条件编辑控件"><figcaption>界面证据 · 左侧保留业务需求与结果摘要；右侧展开规则详情，呈现条件组、标签及逻辑关系。</figcaption></figure>
+<div class="p5-annotations"><div><b>01 需求表达</b><p>对话画布保留用户的圈选目标。</p></div><div><b>02 规则理解</b><p>右侧面板展示层级条件与 AND / OR 关系。</p></div><div><b>03 人工调整</b><p>规则详情提供具体条件的检查与调整入口。</p></div></div>
+<div class="p5-validation"><b>初版可用性验证</b><p>初版方案进行过可用性测试；用户对卡片式信息表达给出了“清晰、明确”方向的正向反馈。</p></div>
+</div></section>
+<section class="page case-page p6-constraints" id="p6"><div class="page-inner">
+<div class="kicker"><b>06</b>Design Decision · 启动条件</div>
+<h2 class="title">把必要信息收集放在启动前，让圈选任务能够顺利执行</h2>
+<p class="page-lead">一期面临三项真实约束。本页聚焦前两项：降低输入成本，并在任务开始前确认不可缺少的人群范围；过程反馈留到下一页。</p>
+<div class="p6-constraints-grid"><article><span>约束 01</span><h3>输入成本高</h3><p>缺少长期记忆，用户需重复提供业务背景与本次任务信息。</p></article><article><span>约束 02</span><h3>任务不能中途暂停</h3><p>启动后无法等待用户补充必要的人群范围，再继续原任务。</p></article><article><span>约束 03 · 下页展开</span><h3>过程反馈受限</h3><p>运行中可返回的信息，无法稳定支撑预设的固定阶段反馈。</p></article></div>
+<div class="p6-solution-grid">
+<article class="p6-solution"><div class="p6-solution-head"><span>对应约束 01 · 减少重复输入</span><h3>给业务目标一个更容易开始的表达入口</h3></div>
+<div class="p6-moves"><p><b>快捷模板</b>用可点选的圈选场景示例，帮助用户开始描述本次任务。</p><p><b>输入中提示</b>在用户输入时提供可参考的业务条件表述。</p><p><b>算法能力入口</b>在首页输入区展示并默认开启，让新增圈选能力可感知。</p></div>
+<figure class="p6-proof"><img src="UP Agent 一二期界面/UP1 期-圈选首页-输入推荐.jpg" alt="UP1 首页：输入中的提示和下方快捷模板"><figcaption>真实界面 · 输入中的提示与下方快捷模板。</figcaption></figure>
+<figure class="p6-proof p6-proof-small"><img src="UP Agent 一二期界面/UP1 期-圈选首页-输入.jpg" alt="UP1 首页输入区显示默认开启的智能推荐入口"><figcaption>真实界面 · 首页输入区显示默认开启的“智能推荐”。</figcaption></figure>
+</article>
+<article class="p6-solution"><div class="p6-solution-head"><span>对应约束 02 · 保证启动条件</span><h3>把人群范围选择从执行中移到首页</h3></div>
+<div class="p6-moves"><p><b>原方案</b>提交需求后，在 Agent 思考阶段检查人群范围，缺失时再请用户补充。</p><p><b>现实限制</b>一期任务不能暂停等待补充，再继续原任务。</p><p><b>实际调整</b>启动前在首页选择／确认圈选 ID 体系和必要的人群范围。</p></div>
+<figure class="p6-proof p6-id-proof"><img src="UP Agent 一二期界面/UP1 期-圈选首页-输入.jpg" alt="UP1 首页左上角可见圈选 ID 体系选择入口"><figcaption>真实界面 · 左上角可见圈选 ID 体系入口。</figcaption></figure>
+<div class="p6-missing"><b>待补真实界面</b><p>人群范围选择展开态及确认后的状态；当前截图只证明首页入口。</p></div>
+</article></div>
+<div class="p6-takeaway"><b>设计取舍</b><p>用模板和输入提示减轻任务表达负担；把必要范围确认前置，牺牲少量即时启动的轻量感，换取一期工作流下可执行的启动条件。</p></div>
+</div></section>
+<section class="page case-page p7-feedback" id="p7"><div class="page-inner">
+<div class="kicker"><b>07</b>Design Decision · 过程反馈</div>
+<h2 class="title">执行反馈按实际返回内容流式呈现，不预设完整阶段文案</h2>
+<p class="page-lead">承接上一页的约束 03：设计原本希望把工作流整理成稳定的关键阶段，但一期实际能展示什么，取决于运行时返回的信息。</p>
+<div class="p7-logic"><article><span>原设计目标</span><h3>阶段化解释任务</h3><p>预先组织用户能理解的关键步骤与对应说明。</p></article><article><span>落地限制</span><h3>返回内容决定反馈</h3><p>运行中的信息不足以稳定填充每个预设阶段。</p></article><article><span>上线调整</span><h3>随返回内容流式展示</h3><p>保留可识别的过程节点，具体内容按实际返回逐步呈现。</p></article></div>
+<div class="p7-proof-grid"><figure class="p7-proof"><img src="UP Agent 一二期界面/UP1 期-思考中-出过程信息.jpg" alt="原先按预设阶段组织过程反馈的界面方案"><figcaption>原方案 · 预设阶段及说明，用于对照设计变化。</figcaption></figure><figure class="p7-proof p7-shipped"><a href="UP Agent 一二期界面/UP1 期-结果-思考过程.jpg" target="_blank" rel="noopener"><img src="UP Agent 一二期界面/UP1 期-结果-思考过程.jpg" alt="UP1 上线界面：思考过程面板保留过程节点，并展示运行时返回的详细内容"></a><figcaption>UP1 上线界面 · 右侧展开思考过程；可见过程节点和逐步返回的内容。点击查看原图。</figcaption></figure></div>
+<div class="p7-takeaway"><b>设计取舍</b><p>保留过程的可读性，但不承诺每个阶段都有预先设计好的完整反馈；界面呈现以实际返回的信息为边界。</p></div>
+</div></section>
+<section class="page case-page p8-result" id="p8"><div class="page-inner">
+<div class="kicker"><b>08</b>Design Decision · 结果判断</div>
+<h2 class="title">结果卡片从解释规则，转向提供业务判断依据</h2>
+<p class="page-lead">运营拿到结果后，先判断圈出的人群是否适合业务目标。设计重点因此落在“第一眼需要看到什么”，而不是让一张卡片承载完整规则。</p>
+<div class="p8-reasoning"><div><b>01 业务任务</b><span>看规模、表现与人群特征</span></div><div><b>02 落地约束</b><span>完整规则难以可靠转译，卡片空间有限</span></div><div><b>03 设计判断</b><span>先给判断依据，具体条件进入详情核对</span></div></div>
+<div class="p8-card-pair">
+<article class="p8-plan-card"><div class="p8-pair-head"><span>原计划 · 方案稿</span><h3>在卡片中同时解释结果与规则</h3><p>指标、文字概述与层级规则并列。规则占用大量空间，复杂条件难在卡片内快速读懂。</p></div><figure class="p8-plan-shot"><img src="UP Agent 一二期界面/UP1 期-原计划-人群圈选方案卡.png" alt="UP1 原计划人群圈选方案卡：指标、文字概述及层级圈选规则同处一张卡片"><figcaption>原计划方案图 · 规则与结果信息同处一张卡片。</figcaption></figure></article>
+<article class="p8-landed-card"><div class="p8-pair-head"><span>实际落地 · UP1 人群卡片</span><h3>把判断依据放到视觉前列</h3><p>人群规模、活跃与交易表现、关键画像优先呈现；规则摘要保留线索，详情承接具体条件。</p></div><figure class="p8-landed-shot"><a class="p8-direct-shot" href="UP Agent 一二期界面/UP1 期-实际落地-人群卡片.png" target="_blank" rel="noopener" aria-label="查看实际落地人群卡片原图"><img src="UP Agent 一二期界面/UP1 期-实际落地-人群卡片.png" alt="实际落地人群卡片：顶部呈现人群数量、活跃与交易占比，下方展示规则摘要和画像特征"></a><figcaption>实际落地卡片截图 · 点击查看原图。</figcaption></figure></article>
+</div>
+<div class="p8-decision"><b>设计取舍</b><p>有限的卡片空间先回答“这群人是否值得进一步采用”；完整条件仍需在详情中核对，卡片上的摘要不能代替规则验证。</p></div>
+</div></section>
+<section class="page case-page p9-revision" id="p9"><div class="page-inner">
+<div class="kicker"><b>09</b>Design Decision · 结果修正</div>
+<h2 class="title">按修改是否影响规则选择处理路径，并保持结果信息连续</h2>
+<p class="page-lead">首次圈选后，运营可能继续调整目标。设计与产品、前端共同补齐修改后的处理分支，以及对话画布和结果面板之间的更新关系。</p>
+<div class="p9-paths"><div><span>不影响整体圈选规则</span><h3>局部处理</h3><p>仅处理不影响整体规则的变化，无需重新执行完整任务流。</p></div><div><span>影响整体圈选规则</span><h3>完整重跑</h3><p>重新执行任务；对话画布展示新一轮过程，右侧结果面板保留旧结果，待新结果返回后替换。</p></div></div>
+<div class="p9-evidence-head"><h3>真实任务 · 调整人群数量</h3><p>界面证明用户提出修改并收到新结果；截图本身不用于判断内部采用哪条处理路径。</p></div>
+<div class="p9-shots"><figure><a href="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量指令.jpg" target="_blank" rel="noopener"><img src="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量指令.jpg" alt="用户在既有任务中提出将人数增加至三千五百万，系统开始处理"></a><figcaption>01 提出变化 · 将目标人数调整至 3,500 万。</figcaption></figure><figure><a href="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量结果.jpg" target="_blank" rel="noopener"><img src="UP Agent 一二期界面/UP1 期-结果-1多轮对话-修改数量结果.jpg" alt="同一对话中出现调整后的人群结果卡片"></a><figcaption>02 查看新结果 · 在同一任务中返回新的人群卡片。点击图片查看原图。</figcaption></figure></div>
+<div class="p9-takeaway"><b>状态设计</b><p>任务过程与可展示结果分开更新，避免新任务开始时过早抹去旧结果。旧结果在重跑期间能否编辑或交付、失败时如何处理，仍待核实。</p></div>
+</div></section>
+<section class="page case-page" id="p10"><div class="page-inner"><div class="kicker"><b>10</b>Outcome · 一期交付</div><h2 class="title">一期交付了从目标输入到人工提交的完整圈选任务链路</h2><p class="page-lead">设计工作围绕任务的三个关键环节展开，让运营能够启动任务、理解过程并判断结果。</p><div class="eval-grid"><article class="eval-panel verified"><h3>启动：从业务目标开始</h3><ul><li>用自然语言描述目标人群</li><li>推荐示例帮助补齐关键条件</li><li>规则由系统组织，供用户核对</li></ul></article><article class="eval-panel verified"><h3>执行：按真实返回反馈</h3><ul><li>过程信息随工作流返回逐步呈现</li><li>界面保留可识别的过程节点</li><li>不预设每个阶段都有完整说明</li></ul></article><article class="eval-panel verified"><h3>采用：由人完成判断</h3><ul><li>结合规模、规则和画像检查人群</li><li>在同一任务中提出修改并查看新结果</li><li>确认后提交使用</li></ul></article></div><div class="conclusion-strip"><b>设计贡献</b><p>让系统承接规则组织与圈选执行，让运营保留结果判断、修正与提交的决定权。</p></div></div></section>
+<section class="page case-page" id="p11"><div class="page-inner"><div class="kicker"><b>11</b>Evolution · 阶段边界</div><h2 class="title">一期跑通单次圈选，二期方案扩展为持续分析工作区</h2><p class="page-lead">两个阶段的变化，体现在任务范围与工作区组织方式的扩展。</p><div class="phase-evolution"><div class="phase-stack"><article class="phase-card"><span class="phase-label">UP1 · 已上线核心闭环</span><h3>完成单次圈选任务</h3><p>业务目标 → 过程反馈 → 结构化结果 → 人工确认。</p><ul><li>自然语言承接意图</li><li>同一会话内局部调整</li></ul></article><article class="phase-card future"><span class="phase-label">UP2 · 平台化方案</span><h3>延伸到持续分析与多任务协作</h3><p>从单一人群结果，扩展为进度、分析、文件与历史上下文共存的工作区。</p></article></div><figure class="screen-frame"><img src="UP Agent 一二期界面/UP2 期-结果展示.jpg" alt="二期多任务工作区方案界面"><figcaption>UP2 方案界面 · 多步骤进度、规则与洞察结果进入同一工作区。</figcaption></figure></div><div class="conclusion-strip"><b>项目演进</b><p>UP1 建立单次圈选的人机闭环；UP2 方案进一步承接跨步骤的分析与协作。</p></div></div></section>
+<section class="page case-page" id="p12"><div class="page-inner"><div class="kicker"><b>12</b>Appendix · AI Coding</div><h2 class="title">设计责任延伸到代码交付，让修改真正被理解与合并</h2><p class="page-lead">我以设计师身份参与前端还原，负责静态 UI、简单交互与视觉细节，并复盘协作方式。</p><div class="coding-metrics"><div><b>1 个月</b><span>项目交付周期</span></div><div><b>38 条</b><span>Coding 改动复盘</span></div><div><b>约 24%</b><span>无效投入，主要源于未提前对齐</span></div></div><div class="appendix-grid"><article class="appendix-card"><span>01 协作边界</span><h3>让设计投入进入合适阶段</h3><p>前端负责业务逻辑、数据流与状态管理；我在联调和还原阶段介入。</p></article><article class="appendix-card"><span>02 投入价值</span><h3>把对齐放在编码之前</h3><p>编码前判断是否必要、三方是否一致、能否快速交付，控制返工成本。</p></article><article class="appendix-card"><span>03 接入成本</span><h3>让修改能够被直接合并</h3><p>按功能整理提交、参考仓库规范命名，并补充交互与视觉改动说明。</p></article><article class="appendix-card"><span>04 可复用资产</span><h3>把个人经验转成团队方法</h3><p>沉淀组件修改引导 Skill 与设计模式 Agent。</p></article></div><div class="conclusion-strip"><b>实践收获</b><p>“会写代码”不是终点，关键是判断何时投入、如何降低合并成本，并让有效经验可以复用。</p></div></div></section>
 </main>
-<div class="footer"><span>UP Agent · 产品设计案例</span><span id="pageNo">01 / 13</span></div>
+<div class="footer"><span>UP Agent · 产品设计案例</span><span id="pageNo">01 / 12</span></div>
 <script>
 const pages=[...document.querySelectorAll('.page')],nav=document.querySelector('.nav'),pageNo=document.querySelector('#pageNo');
-pages.forEach((p,i)=>{const a=document.createElement('a');a.href='#'+p.id;a.title=`第 ${i+1} 页`;nav.append(a)});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=pages.indexOf(e.target);nav.children[i]?.classList.add('active');[...nav.children].forEach((a,j)=>j!==i&&a.classList.remove('active'));pageNo.textContent=String(i+1).padStart(2,'0')+' / 13';}}),{threshold:.55});pages.forEach(p=>io.observe(p));
+const pageSummaries=["项目总览：从业务意图到可检查的人群方案", "业务场景：运营承担圈选全链路与结果责任", "研究发现：转译、执行与判断三类阻力", "方案判断：Agent 承接规则转译与任务推进", "核心交互架构：对话承接意图，画布校验和调整规则", "启动条件：降低输入成本，前置必要范围确认", "过程反馈：按实际返回内容流式呈现", "结果判断：卡片聚焦规模、表现与画像", "结果修正：按规则影响范围处理并保持状态连续", "一期交付：跑通圈选的人机协作闭环", "阶段演进：单次圈选走向持续分析工作区", "协作实践：让设计改动被理解与合并"];
+pages.forEach((p,i)=>{const a=document.createElement('a');a.href='#'+p.id;a.setAttribute('aria-label',`第 ${i+1} 页：${pageSummaries[i]}`);const tip=document.createElement('span');tip.className='nav-summary';tip.setAttribute('aria-hidden','true');tip.textContent=String(i+1).padStart(2,'0')+' · '+pageSummaries[i];a.append(tip);nav.append(a)});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=pages.indexOf(e.target);nav.children[i]?.classList.add('active');[...nav.children].forEach((a,j)=>j!==i&&a.classList.remove('active'));pageNo.textContent=String(i+1).padStart(2,'0')+' / 12';}}),{threshold:.55});pages.forEach(p=>io.observe(p));
 </script>
 </body>
 </html>
